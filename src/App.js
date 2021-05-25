@@ -1,5 +1,6 @@
 import "./App.css";
-import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState, useEffect } from "react";
 import MovieList from "./components/MovieList";
 
 const App = () => {
@@ -29,9 +30,24 @@ const App = () => {
         "https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg",
     },
   ]);
+
+  const getMovieRequest = async () => {
+    const url = "http://www.omdbapi.com/?s=star wars&apikey=a67235fa";
+
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    console.log(responseJson);
+  };
+
+  useEffect(() => {
+    getMovieRequest();
+  });
   return (
-    <div>
-      <MovieList movies={movies} />
+    <div className="container-fluid movie-app">
+      <div className="row">
+        <MovieList movies={movies} />
+      </div>
     </div>
   );
 };
